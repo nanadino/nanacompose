@@ -1,5 +1,5 @@
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=C1F0FF&height=300&section=header&text=🐳Docker-Compose🐳&fontSize=60&fontColor=FFFFFF&animation=fadeIn&width=1200" width="1200" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=C1F0FF&height=300&section=header&text=🐳Docker-Compose🐳&fontSize=55&fontColor=FFFFFF&animation=fadeIn&width=1200" width="1200" />
 
 
 <br>
