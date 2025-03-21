@@ -177,7 +177,7 @@ crontab -e
 ```
 <br>
 
-- **MySQL 백업 자동화**`backup1.sh`와 `crontab`을 이용해 **DB 백업 자동화** 진행
+- `backup1.sh`와 `crontab`을 이용해 **DB 백업 자동화** 진행
 - **Docker Compose를 통해 전체 시스템 구성 및 실행**`docker-compose.yml`을 통해 컨테이너 실행
 
 <br>
