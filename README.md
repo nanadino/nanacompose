@@ -166,22 +166,19 @@ ENTRYPOINT ["java", "-jar", "/app.jar"]
 <br>
 
 ✅ **최종 실행 방법**
-1. 모든 컨테이너 실행
+
+1. 컨테이너 실행
 ./scripts/start.sh
-2. 헬스체크 실행 (자동으로 실행됨)
-./scripts/healthcheck.sh
-3. 수동 백업 실행
-./scripts/backup.sh
-4. 자동 백업 설정 확인
-crontab -l
 
-
+2. 자동 백업 실행
+```
+crontab -e
+* * * * * /bin/bash /home/admin1/10.Project/scripts/backup1.sh
+```
 <br>
 
-- **컨테이너 상태 체크 후 자동 전환**`healthcheck.sh` 스크립트가 **app1이 죽으면 app2를 대체**하는 역할 수행
-- **MySQL 백업 자동화**`backup.sh`와 `crontab`을 이용해 **DB 백업 자동화** 진행
-- **Docker Compose를 통해 전체 시스템 구성 및 실행**`docker-compose.yml`을 통해 모든 컨테이너 한 번에 실행
-- 장애 발생 시 **자동으로 대체 컨테이너가 활성화**되고, **주기적으로 MySQL이 백업**된다
+- **MySQL 백업 자동화**`backup1.sh`와 `crontab`을 이용해 **DB 백업 자동화** 진행
+- **Docker Compose를 통해 전체 시스템 구성 및 실행**`docker-compose.yml`을 통해 컨테이너 실행
 
 <br>
 
