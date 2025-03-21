@@ -45,17 +45,10 @@ Project
 ├── app1
 │   ├── app.jar
 │   └── Dockerfile
-├── app2
-│   ├── app.jar
-│   └── Dockerfile
-├── backup.log
 ├── docker-compose.yml
-├── mysql
-│   └── Dockerfile
+├── backups
 └── scripts
-    ├── backups
-    ├── backup.sh
-    ├── healthcheck.sh
+    ├── backup1.sh
     └── start.sh
 ```
 
@@ -69,13 +62,15 @@ version: '3.8'
 services:
   mysql:
     build: ./mysql
-    container_name: mysql_container
+    container_name: mysqldb
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: testdb
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: fisa
+      MYSQL_USER: user01
+      MYSQL_PASSWORD: user01
+    networks:
+      - docker-compose
     ports:
       - "3306:3306"
     volumes:
@@ -88,39 +83,26 @@ services:
     depends_on:
       - mysql
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/testdb
-      SPRING_DATASOURCE_USERNAME: user
-      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/fisa
+      SPRING_DATASOURCE_USERNAME: user01
+      SPRING_DATASOURCE_PASSWORD: user01
     ports:
       - "8081:8080"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      test: ["CMD", "curl", "-f", "http://192.168.1.149:8080/actuator/health"]
       interval: 30s
       retries: 3
       start_period: 10s
       timeout: 5s
-
-  app2:
-    build: ./app2
-    container_name: app2_container
-    restart: always
-    depends_on:
-      - mysql
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/testdb
-      SPRING_DATASOURCE_USERNAME: user
-      SPRING_DATASOURCE_PASSWORD: password
-    ports:
-      - "8082:8080"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
-      interval: 30s
-      retries: 3
-      start_period: 10s
-      timeout: 5s
+    networks:
+      - docker-compose
 
 volumes:
   mysql_data:
+
+networks:
+  docker-compose:
+    driver: bridge
 ```
 
 <br>
