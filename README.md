@@ -130,7 +130,16 @@ volumes:
 
 <br>
 
-✅
+✅ 최종 실행 방법
+1. 모든 컨테이너 실행
+./scripts/start.sh
+2. 헬스체크 실행 (자동으로 실행됨)
+./scripts/healthcheck.sh
+3. 수동 백업 실행
+./scripts/backup.sh
+4. 자동 백업 설정 확인
+crontab -l
+
 
 <br>
 
