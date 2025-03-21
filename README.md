@@ -43,16 +43,20 @@
 ```
 Project
 ├── app1
+│   ├── app.jar
 │   └── Dockerfile
 ├── app2
+│   ├── app.jar
 │   └── Dockerfile
+├── backup.log
 ├── docker-compose.yml
 ├── mysql
 │   └── Dockerfile
 └── scripts
-    ├── start.sh
+    ├── backups
+    ├── backup.sh
     ├── healthcheck.sh
-    └── backup.sh
+    └── start.sh
 ```
 
 <br>
@@ -76,7 +80,6 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./mysql/my.cnf:/etc/mysql/my.cnf  # (선택적)
 
   app1:
     build: ./app1
