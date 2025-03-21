@@ -107,15 +107,65 @@ networks:
 
 <br>
 
-✅ 
+✅ **start.sh**
 
+```
+echo "Docker Compose 실행 중..."
+docker-compose up -d --build
+
+echo "모든 컨테이너 실행 완료!"
+docker ps
+```
+
+<br>
+
+✅ **backup1.sh**
+
+```
+BACKUP_DIR=/home/admin1/10.Project/backups
+mkdir -p $BACKUP_DIR
+
+# 현재 날짜 및 시간
+TIMESTAMP=$(date +'%Y%m%d_%H%M%S')
+
+# MySQL 컨테이너에서 fisa 데이터베이스 백업 실행
+docker exec mysqldb mysqldump --default-character-set=utf8mb4 -u user01 -puser01 fisa > $BACKUP_DIR/backup_$TIMESTAMP.sql
+
+echo "백업 완료: $BACKUP_DIR/backup_$TIMESTAMP.sql"
+
+# testdb로 복원하기
+docker exec -i mysqldb mysql -u root -proot testdb < $BACKUP_DIR/backup_$TIMESTAMP.sql
+
+echo "testdb로 데이터 복원이 완료되었습니다."admin1@myserver1:~/10.Project/scripts$ cat backup1.sh
+BACKUP_DIR=/home/admin1/10.Project/backups
+mkdir -p $BACKUP_DIR
+
+# 현재 날짜 및 시간
+TIMESTAMP=$(date +'%Y%m%d_%H%M%S')
+
+# MySQL 컨테이너에서 fisa 데이터베이스 백업 실행
+docker exec mysqldb mysqldump --default-character-set=utf8mb4 -u user01 -puser01 fisa > $BACKUP_DIR/backup_$TIMESTAMP.sql
+
+echo "백업 완료: $BACKUP_DIR/backup_$TIMESTAMP.sql"
+
+# testdb로 복원하기
+docker exec -i mysqldb mysql -u root -proot testdb < $BACKUP_DIR/backup_$TIMESTAMP.sql
+
+echo "testdb로 데이터 복원이 완료되었습니다."
+```
 <br>
 
 ✅ **Dockerfile**
 
+```
+FROM openjdk:17
+COPY app.jar /app.jar
+ENTRYPOINT ["java", "-jar", "/app.jar"]
+```
+
 <br>
 
-✅ 최종 실행 방법
+✅ **최종 실행 방법**
 1. 모든 컨테이너 실행
 ./scripts/start.sh
 2. 헬스체크 실행 (자동으로 실행됨)
