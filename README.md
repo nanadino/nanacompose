@@ -9,8 +9,8 @@
 - [2️⃣ Purpose](#2%EF%B8%8F⃣-purpose)
 - [3️⃣ Contents](#3%EF%B8%8F⃣-contents)
 - [4️⃣ Performance Optimization](#4%EF%B8%8F⃣-performance-optimization)
-- [5️⃣ Trouble Shooting](#5%EF%B8%8F⃣-trouble-shooting)
-
+- [5️⃣ Conclusion](#5%EF%B8%8F⃣-Conclusion)
+- 
 <br>
 <br>
 
@@ -28,9 +28,8 @@
 
 <br>
 
-- **헬스체크를 통해 컨테이너 상태 감지**하나의 컨테이너가 비정상 상태가 되면 백업 컨테이너로 전환
 - **Docker Compose + 실행 스크립트**`docker-compose.yml`, `Dockerfile`, 그리고 실행 스크립트(`sh` 파일)를 작성하여 한 번에 실행
-- **MySQL 컨테이너 기반의 주기적인 백업 및 자동화**백업 컨테이너를 활용하거나 `mysqldump`를 이용하여 자동화
+- **MySQL 컨테이너 기반의 주기적인 백업 및 자동화**를 `mysqldump`를 이용하여 자동화
 
 <br>
 
@@ -171,11 +170,16 @@ ENTRYPOINT ["java", "-jar", "/app.jar"]
 ./scripts/start.sh
 
 2. 자동 백업 실행
+
+![image](https://github.com/user-attachments/assets/e1018f7f-d04e-49fa-86ef-88fb8a1decd4)
+
 ```
 crontab -e
 * * * * * /bin/bash /home/admin1/10.Project/scripts/backup1.sh
 ```
 <br>
+
+![image](https://github.com/user-attachments/assets/5cd0bae9-d305-4bba-a938-20ceea9425ea)
 
 - `backup1.sh`와 `crontab`을 이용해 **DB 백업 자동화** 진행
 - **Docker Compose를 통해 전체 시스템 구성 및 실행**`docker-compose.yml`을 통해 컨테이너 실행
@@ -191,8 +195,9 @@ crontab -e
 
 
 
-## 5️⃣ Trouble Shooting
+## 5️⃣ Conclusion
 
+sql문으로 자동 백업을 통해서 'testdb'데이터베이스로 데이터 백업 가능
 <br>
 <br>
 
